@@ -4,12 +4,14 @@
   flex-direction: column;
 }
 
-.main-content {
+.main-content-wrapper {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-wrapper > * {
   padding: 20px;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
 }
 
 /* Welcome Screen */

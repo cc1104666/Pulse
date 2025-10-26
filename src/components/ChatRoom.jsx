@@ -18,9 +18,11 @@ function ChatRoom({ onOpenPrivateChat }) {
   
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const isInitialLoad = useRef(true);
+  const previousMessageCount = useRef(0);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (behavior = 'smooth') => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
   };
 
   // Load initial messages
@@ -37,9 +39,10 @@ function ChatRoom({ onOpenPrivateChat }) {
         // Check if message already exists
         const exists = prev.some(m => m.messageId === newMsg.messageId);
         if (exists) return prev;
+        // Scroll to bottom when new message arrives
+        setTimeout(() => scrollToBottom(), 100);
         return [...prev, newMsg];
       });
-      scrollToBottom();
     });
 
     return () => {
@@ -47,8 +50,21 @@ function ChatRoom({ onOpenPrivateChat }) {
     };
   }, []);
 
+  // Only scroll on initial load or when messages count increases
   useEffect(() => {
-    scrollToBottom();
+    if (isInitialLoad.current && messages.length > 0) {
+      // First load - scroll instantly
+      scrollToBottom('auto');
+      isInitialLoad.current = false;
+      previousMessageCount.current = messages.length;
+    } else if (messages.length > previousMessageCount.current) {
+      // New messages added - scroll smoothly
+      scrollToBottom('smooth');
+      previousMessageCount.current = messages.length;
+    } else {
+      // Just update count, don't scroll (for refreshes)
+      previousMessageCount.current = messages.length;
+    }
   }, [messages]);
 
   const loadMessages = async () => {
@@ -82,8 +98,11 @@ function ChatRoom({ onOpenPrivateChat }) {
       await sendMessage(newMessage);
       setNewMessage('');
       
-      // Reload messages after a short delay
-      setTimeout(loadMessages, 2000);
+      // Reload messages after a short delay and scroll
+      setTimeout(() => {
+        loadMessages();
+        setTimeout(() => scrollToBottom('smooth'), 500);
+      }, 2000);
     } catch (error) {
       console.error('Failed to send message:', error);
       alert('Failed to send message. Please try again.');

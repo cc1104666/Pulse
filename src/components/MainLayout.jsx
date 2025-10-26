@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import Header from './Header';
+import Footer from './Footer';
 import Registration from './Registration';
 import ChatRoom from './ChatRoom';
 import PrivateChat from './PrivateChat';
@@ -46,7 +47,7 @@ function MainLayout() {
     <div className="main-layout">
       <Header />
       
-      <main className="main-content">
+      <main className="main-content-wrapper">
         {!isConnected ? (
           <div className="welcome-screen">
             <div className="welcome-card">
@@ -102,6 +103,8 @@ function MainLayout() {
           </>
         )}
       </main>
+      
+      <Footer />
     </div>
   );
 }
