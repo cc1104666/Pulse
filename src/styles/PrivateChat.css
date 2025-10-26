@@ -107,6 +107,8 @@
 .private-chat-messages {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -223,6 +225,7 @@
 @media (max-width: 768px) {
   .private-chat-modal {
     max-height: 90vh;
+    margin: 10px;
   }
 
   .private-chat-header {
@@ -236,6 +239,14 @@
   .private-chat-avatar {
     width: 40px;
     height: 40px;
+  }
+
+  .private-chat-messages {
+    padding: 15px;
+    min-height: 250px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .private-message {

@@ -26,10 +26,15 @@ body {
   background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-light) 100%);
   color: var(--text-primary);
   min-height: 100vh;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Scrollbar styles */
