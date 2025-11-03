@@ -133,7 +133,7 @@ const main = async () => {
   }
 
   // Deploy all contracts
-  const contracts = ['PulseChat', 'PulseGroups', 'PulseChannels', 'PulseFriends', 'PulsePrivateMessages'];
+  const contracts = ['PulseChat', 'PulseGroups', 'PulseChannels', 'PulseFriends', 'PulsePrivateMessages', 'PulseAI'];
   const deployments = {};
 
   for (const contractName of contracts) {

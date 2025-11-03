@@ -64,7 +64,8 @@ const contracts = [
   'PulseGroups.sol',
   'PulseChannels.sol',
   'PulseFriends.sol',
-  'PulsePrivateMessages.sol'
+  'PulsePrivateMessages.sol',
+  'PulseAI.sol'
 ];
 
 (async () => {

@@ -6,6 +6,7 @@ import pulseGroupsABI from '../contracts/PulseGroups.json';
 import pulseChannelsABI from '../contracts/PulseChannels.json';
 import pulseFriendsABI from '../contracts/PulseFriends.json';
 import pulsePrivateMessagesABI from '../contracts/PulsePrivateMessages.json';
+import pulseAIABI from '../contracts/PulseAI.json';
 import deploymentData from '../contracts/deployment.json';
 
 // Contract ABIs and addresses
@@ -29,6 +30,10 @@ const contracts = {
   pulsePrivateMessages: {
     abi: pulsePrivateMessagesABI,
     address: deploymentData.PulsePrivateMessages?.address,
+  },
+  pulseAI: {
+    abi: pulseAIABI,
+    address: deploymentData.PulseAI?.address,
   },
 };
 
@@ -1079,6 +1084,122 @@ export function useContract() {
     }
   };
 
+  // ==================== PulseAI Functions ====================
+
+  // Check if user has AI access
+  const checkAIAccess = async (userAddress) => {
+    const { address: contractAddress, abi } = contracts.pulseAI;
+    if (!contractAddress || !abi) {
+      console.error('PulseAI contract not deployed');
+      return false;
+    }
+
+    try {
+      const hasAccess = await publicClient.readContract({
+        address: contractAddress,
+        abi,
+        functionName: 'checkAIAccess',
+        args: [userAddress],
+      });
+
+      return hasAccess;
+    } catch (error) {
+      console.error('Error checking AI access:', error);
+      return false;
+    }
+  };
+
+  // Mint AI NFT
+  const mintAINFT = async (price) => {
+    const { address: contractAddress, abi } = contracts.pulseAI;
+    if (!contractAddress || !abi || !walletClient) {
+      throw new Error('PulseAI contract not available');
+    }
+
+    try {
+      const { request } = await publicClient.simulateContract({
+        address: contractAddress,
+        abi,
+        functionName: 'mintAINFT',
+        account: address,
+        value: BigInt(price),
+      });
+
+      const hash = await walletClient.writeContract(request);
+      
+      await publicClient.waitForTransactionReceipt({ hash });
+      
+      return hash;
+    } catch (error) {
+      console.error('Error minting AI NFT:', error);
+      throw error;
+    }
+  };
+
+  // Get mint price
+  const getMintPrice = async () => {
+    const { address: contractAddress, abi } = contracts.pulseAI;
+    if (!contractAddress || !abi) {
+      return '0';
+    }
+
+    try {
+      const price = await publicClient.readContract({
+        address: contractAddress,
+        abi,
+        functionName: 'mintPrice',
+      });
+
+      return price.toString();
+    } catch (error) {
+      console.error('Error getting mint price:', error);
+      return '10000000000000000000'; // Default 10 PAS
+    }
+  };
+
+  // Get user's AI NFTs
+  const getUserAINFTs = async (userAddress) => {
+    const { address: contractAddress, abi } = contracts.pulseAI;
+    if (!contractAddress || !abi) {
+      return [];
+    }
+
+    try {
+      const nfts = await publicClient.readContract({
+        address: contractAddress,
+        abi,
+        functionName: 'getUserNFTs',
+        args: [userAddress],
+      });
+
+      return nfts.map(id => Number(id));
+    } catch (error) {
+      console.error('Error getting user AI NFTs:', error);
+      return [];
+    }
+  };
+
+  // Get total AI NFTs minted
+  const getTotalAINFTs = async () => {
+    const { address: contractAddress, abi } = contracts.pulseAI;
+    if (!contractAddress || !abi) {
+      return 0;
+    }
+
+    try {
+      const total = await publicClient.readContract({
+        address: contractAddress,
+        abi,
+        functionName: 'getTotalNFTs',
+      });
+
+      return Number(total);
+    } catch (error) {
+      console.error('Error getting total AI NFTs:', error);
+      return 0;
+    }
+  };
+
   return {
     // PulseChat
     checkUserRegistered,
@@ -1121,6 +1242,12 @@ export function useContract() {
     sendPrivateMessage,
     getConversationMessages,
     getConversationMessageCount,
+    // PulseAI
+    checkAIAccess,
+    mintAINFT,
+    getMintPrice,
+    getUserAINFTs,
+    getTotalAINFTs,
   };
 }
 

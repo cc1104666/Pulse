@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useContract } from '../hooks/useContract';
 import MessageItem from './MessageItem';
 import UserList from './UserList';
+import AIAssistant from './AIAssistant';
 import '../styles/ChatRoom.css';
 
 function ChatRoom({ onOpenPrivateChat, onOpenGroupList, onOpenChannelList, onOpenDiscover }) {
@@ -204,6 +205,14 @@ function ChatRoom({ onOpenPrivateChat, onOpenGroupList, onOpenChannelList, onOpe
                 <span className="char-count">
                   {newMessage.length}/1000
                 </span>
+                <AIAssistant
+                  inputText={newMessage}
+                  onApplyText={setNewMessage}
+                  messages={messages}
+                  onSummaryGenerated={(summary) => {
+                    toast.success('Summary generated!');
+                  }}
+                />
                 <button
                   type="submit"
                   className="send-btn"
