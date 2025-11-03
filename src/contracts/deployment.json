@@ -1,9 +1,52 @@
 {
-  "contractName": "PulseChat",
-  "address": "0x96f82b552b1c0592f937b4edae9e9815bb20133c",
-  "network": "Polkadot Hub TestNet",
-  "chainId": 420420422,
-  "deployedAt": "2025-10-26T04:52:41.966Z",
-  "transactionHash": "0xd05bc285868b0aaf309752ad0fcecf6caf10f29b5e131744d88a3509906fab6f",
-  "blockNumber": "1909261"
+  "PulseChat": {
+    "contractName": "PulseChat",
+    "address": "0xe4b04673c7ae5df498397fc67b9e6840f8510e6d",
+    "network": "Polkadot Hub TestNet",
+    "chainId": 420420422,
+    "deployedAt": "2025-11-03T03:53:32.186Z",
+    "transactionHash": "0xd89de8d623b030bbfa77d65ad5b905f5901a05216ee5a944ab3d3439a737d547",
+    "blockNumber": "2014384",
+    "gasUsed": "69041344840"
+  },
+  "PulseGroups": {
+    "contractName": "PulseGroups",
+    "address": "0xa047f1daaed0d4dab58b089d866e1e97f2ba2b1d",
+    "network": "Polkadot Hub TestNet",
+    "chainId": 420420422,
+    "deployedAt": "2025-11-03T03:53:37.825Z",
+    "transactionHash": "0x1da8bd1cc5ef2bdf88adbf44739fc86c77dafe076ae6db84e8e0f243d46f88a4",
+    "blockNumber": "2014385",
+    "gasUsed": "58084344840"
+  },
+  "PulseChannels": {
+    "contractName": "PulseChannels",
+    "address": "0x1bb70b8687dcf709ef15754f6037c1742d10526e",
+    "network": "Polkadot Hub TestNet",
+    "chainId": 420420422,
+    "deployedAt": "2025-11-03T03:53:45.471Z",
+    "transactionHash": "0x7051ec927ff29eacf8d2bee4a7548b0933b48fae7ebd503fa2445ed02c811519",
+    "blockNumber": "2014386",
+    "gasUsed": "58005344840"
+  },
+  "PulseFriends": {
+    "contractName": "PulseFriends",
+    "address": "0xf8462abf83a61335b8118547a0bebc880c25c801",
+    "network": "Polkadot Hub TestNet",
+    "chainId": 420420422,
+    "deployedAt": "2025-11-03T03:53:50.157Z",
+    "transactionHash": "0xb140e58e162ad15dc8caf0f4b6bc253ce8e9bacf8508f2af82e650cf287b573d",
+    "blockNumber": "2014387",
+    "gasUsed": "18397344840"
+  },
+  "PulsePrivateMessages": {
+    "contractName": "PulsePrivateMessages",
+    "address": "0x758e09f9be54cf75e0a399ccff6daa6ddda5f77a",
+    "network": "Polkadot Hub TestNet",
+    "chainId": 420420422,
+    "deployedAt": "2025-11-03T03:53:56.000Z",
+    "transactionHash": "0xf6b1e5f43635b5ef7211656fc47bd0abe35842b29521d9b7decad7e3e4b11081",
+    "blockNumber": "2014388",
+    "gasUsed": "33803344840"
+  }
 }
